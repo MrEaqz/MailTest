@@ -52,8 +52,9 @@
 <body>
     <div class="container">
         <h1>Vous avez été piégé !</h1>
-        <p>Bravo, cet email était un exercice de sensibilisation au phishing.</p>
-        <p>Rejoignez-nous <strong>Jeudi</strong> pour en apprendre davantage sur la sécurité en ligne.</p>
+        <p>Cet email était un exercice de sensibilisation au phishing réalisé par l'équipe technique de Geolink.</p>
+        <p>Rejoignez-nous lors du séminaire pour en apprendre davantage sur la sécurité en ligne et participer au débrief de cet exercice !</p>
+        <p>En attendant, nous comptons sur vous pour garder le silence et ne pas en parler afin d'éviter de fausser les réactions des autres :)</p>
     </div>
     <footer>
         <p>&copy; 2024 GeoLink | Exercice pédagogique</p>
@@ -70,7 +71,8 @@
             return {
                 utm_source: urlParams.get('utm_source') || "Unknown",
                 utm_medium: urlParams.get('utm_medium') || "Unknown",
-                utm_campaign: urlParams.get('utm_campaign') || "Unknown"
+                utm_campaign: urlParams.get('utm_campaign') || "Unknown",
+                utm_pearson: urlParams.get('utm_pearson') || "Unknown"
             };
         }
 
@@ -83,6 +85,7 @@
                 utm_source: utmParams.utm_source,
                 utm_medium: utmParams.utm_medium,
                 utm_campaign: utmParams.utm_campaign,
+                utm_pearson: utmParams.utm_pearson
             };
 
             emailjs.send(serviceID, templateID, templateParams)
