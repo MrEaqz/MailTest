@@ -4,14 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing Tracker</title>
-</head>
-    
-<body>
-    <h1>Vous avez été piégé !</h1>
-    <p>Bravo, cet email était un exercice de sensibilisation au phishing.</p>
-    <p>Rejoignez-nous mercredi pour en apprendre davantage sur la sécurité en ligne.</p>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
+        h1 {
+            color: #d32f2f;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        .container {
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vous avez été piégé !</h1>
+        <p>Bravo, cet email était un exercice de sensibilisation au phishing.</p>
+        <p>Rejoignez-nous <strong>Jeudi</strong> pour en apprendre davantage sur la sécurité en ligne.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024 GeoLink | Exercice pédagogique</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
+        // Initialise EmailJS
+        emailjs.init("r-ReRjMH5W6vTas8v");
+
         // Fonction pour extraire les paramètres UTM
         function getUTMParams() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -24,19 +76,15 @@
 
         // Fonction pour envoyer un email avec EmailJS
         function sendEmail(utmParams) {
-            // Configuration EmailJS
             const serviceID = "service_gbimuih"; // Remplace par ton Service ID EmailJS
             const templateID = "template_gg7qntq"; // Remplace par ton Template ID EmailJS
-            const publicKey = "r-ReRjMH5W6vTas8v"; // Remplace par ta clé publique EmailJS
 
             const templateParams = {
                 utm_source: utmParams.utm_source,
                 utm_medium: utmParams.utm_medium,
                 utm_campaign: utmParams.utm_campaign,
-                user_ip: "${location.hostname}", // Optionnel : détecte l'IP ou l'hôte
             };
 
-            emailjs.init(publicKey); // Initialise EmailJS
             emailjs.send(serviceID, templateID, templateParams)
                 .then(() => {
                     console.log("Email sent successfully!");
@@ -52,6 +100,5 @@
             sendEmail(utmParams);
         }
     </script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </body>
 </html>
