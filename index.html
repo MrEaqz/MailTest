@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Tracker</title>
+</head>
+<body>
+    <h1>Vous avez été piégé !</h1>
+    <p>Bravo, cet email était un exercice de sensibilisation au phishing.</p>
+    <p>Rejoignez-nous mercredi pour en apprendre davantage sur la sécurité en ligne.</p>
+
+    <script>
+        // Fonction pour extraire les paramètres UTM
+        function getUTMParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                utm_source: urlParams.get('utm_source'),
+                utm_medium: urlParams.get('utm_medium'),
+                utm_campaign: urlParams.get('utm_campaign')
+            };
+        }
+
+        // Fonction pour envoyer un email avec EmailJS
+        function sendEmail(utmParams) {
+            // Configuration EmailJS
+            const serviceID = "service_gbimuih"; // Remplace par ton Service ID EmailJS
+            const templateID = "template_gg7qntq"; // Remplace par ton Template ID EmailJS
+            const publicKey = "r-ReRjMH5W6vTas8v"; // Remplace par ta clé publique EmailJS
+
+            const templateParams = {
+                utm_source: utmParams.utm_source,
+                utm_medium: utmParams.utm_medium,
+                utm_campaign: utmParams.utm_campaign,
+                user_ip: "${location.hostname}", // Optionnel : détecte l'IP ou l'hôte
+            };
+
+            emailjs.init(publicKey); // Initialise EmailJS
+            emailjs.send(serviceID, templateID, templateParams)
+                .then(() => {
+                    console.log("Email sent successfully!");
+                })
+                .catch(error => {
+                    console.error("Error sending email:", error);
+                });
+        }
+
+        // Récupère les UTM et envoie l'email
+        const utmParams = getUTMParams();
+        if (utmParams.utm_source) {
+            sendEmail(utmParams);
+        }
+    </script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</body>
+</html>
